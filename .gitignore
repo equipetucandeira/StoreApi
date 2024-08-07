@@ -1,3 +1,6 @@
 .DS_Store
 .env
 .php-cs-fixer-cache
+.htaccess
+composer.lock
+vendor/
