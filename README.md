@@ -103,18 +103,19 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
       "name": "Shampoo",
       "description": "Shampoo ultra eficaz...",
       "price": 25
-    }
+    },
     {
-    files: {
-     "image1": file...,
-     "image2": file...,
-     "image3": file...,
+    "files": {
+     "image1": "file...",
+     "image2": "file...",
+     "image3": "file...",
      }
     }
     ```
-* Parâmetros Header (para fins de autenticação do admin):
+* Parâmetros Header (para fins de autenticação do admin e envio de arquivos):
   ```bash
    USER-ID: 1
+   Content-Type: 'multipart/form-data'
 * Sucesso:
   * Status 201: Sucesso ao criar o produto
 
