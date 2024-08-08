@@ -69,13 +69,13 @@ class ProductService
                 $data['price']
             );
 
-            if(isset($image["image2"])) {
+            if(isset($images["image2"])) {
                 Validator::validateStringSize($images["image2"], 1, 40);
                 $this->productModel->InsertImage("image2", $images["image2"], $id);
             }
-            if(isset($image["image3"])) {
-                Validator::validateStringSize($data["images"]["image3"], 1, 40);
-                $this->productModel->InsertImage("image3", $image["image3"], $id);
+            if(isset($images["image3"])) {
+                Validator::validateStringSize($images["image3"], 1, 40);
+                $this->productModel->InsertImage("image3", $images["image3"], $id);
                 return $id;
             }
 
