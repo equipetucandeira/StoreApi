@@ -20,6 +20,22 @@ class ProductService
         return $this->productModel->getProductBySku($productSku) ?? false;
     }
 
+    private function handleImageUpload($images)
+    {
+        $uploadDir = realpath(__DIR__.'/../../public/images').'/';
+        $uploadedImages = [];
+        foreach ($images as $key => $image) {
+            if(is_uploaded_file($image['tmp_name'])) {
+                $destinationPath = $uploadDir . basename($image['name']);
+                if (move_uploaded_file($image['tmp_name'], $destinationPath)) {
+                    $uploadedImages[$key] = str_replace("/var/www/html/", "", $destinationPath, );
+                } else {
+                    throw new \Exception("Failed to upload image: $key");
+                }
+            }
+        }
+        return $uploadedImages;
+    }
     public function createProduct(array $data)
     {
         try {
@@ -30,37 +46,39 @@ class ProductService
             $data["description"] = trim($data["description"]);
             $data["price"] = floatval(trim($data["price"]));
             $data["sku"] = trim($data["sku"]);
-
+            $uploadedImages = $data["files"];
             if($this->skuExists($data['sku']) !== false) {
                 throw new \Exception("Product SKU Already Exists");
             }
 
             Validator::validateStringSize($data["name"], 3, 50);
             Validator::validateStringSize($data["description"], 10, 200);
-            Validator::validateStringSize($data["images"]["image1"], 1, 40);
             Validator::validateStringSize($data["sku"], 1, 5);
 
             if($data["price"] <= 0) {
                 throw new \Exception("Product Price invalid");
             }
 
+
+            $images = $this->handleImageUpload($uploadedImages);
             $id = $this->productModel->insertProduct(
                 $data['name'],
                 $data['sku'],
                 $data['description'],
-                $data['images']["image1"],
+                $images["image1"],
                 $data['price']
             );
 
-            if(isset($data["images"]["image2"])) {
-                Validator::validateStringSize($data["images"]["image2"], 1, 40);
-                $this->productModel->InsertImage("image2", $data["images"]["image2"], $id);
+            if(isset($image["image2"])) {
+                Validator::validateStringSize($images["image2"], 1, 40);
+                $this->productModel->InsertImage("image2", $images["image2"], $id);
             }
-            if(isset($data["images"]["image3"])) {
+            if(isset($image["image3"])) {
                 Validator::validateStringSize($data["images"]["image3"], 1, 40);
-                $this->productModel->InsertImage("image3", $data["images"]["image3"], $id);
+                $this->productModel->InsertImage("image3", $image["image3"], $id);
                 return $id;
             }
+
         } catch(\Exception $e) {
             throw new \Exception($e->getMessage());
         }

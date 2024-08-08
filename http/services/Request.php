@@ -25,6 +25,11 @@ class Request
 
     public static function getBody()
     {
+
+        if (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data') !== false) {
+            // Se multipart/form-data, retorna $_POST para os campos de texto e $_FILES para os arquivos
+            return array_merge($_POST, ['files' => $_FILES]);
+        }
         $json = json_decode(file_get_contents('php://input'), true) ?? [];
 
         return match (self::getMethod()) {

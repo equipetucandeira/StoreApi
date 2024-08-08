@@ -1,6 +1,11 @@
 RewriteEngine On
 
-# Redireciona todas as requisições para o index.php
+# Permitir acesso direto a arquivos com as extensões abaixo
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|css|js)$ [NC]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Redireciona todas as requisições para o index.php, exceto para arquivos existentes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]

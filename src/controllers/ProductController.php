@@ -36,7 +36,6 @@ class ProductController
                 return;
             }
             $body = Request::getBody();
-
             $this->productService->createProduct($body);
             Response::success(201, "Product Created Successfully");
 
