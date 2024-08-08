@@ -7,6 +7,9 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
 * Controller: UserController
 * Método: fetch
 * Parâmetros Corpo: Nenhum
+* Parâmetros Header (para fins de autenticação do admin):
+  ```bash
+   USER-ID: 1
 * Sucesso:
   * Status 200: Sucesso ao recuperar os dados dos usuários.
   * Exemplo:
@@ -23,6 +26,9 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
 * Controller: ProductController
 * Método: fetch
 * Parâmetros Corpo: Nenhum
+* Parâmetros Header (para fins de autenticação do admin):
+  ```bash
+   USER-ID: 1
 * Sucesso:
   * Status 200: Sucesso ao recuperar os dados dos produtos.
   * Exemplo:
@@ -33,12 +39,11 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
       "name": "Shampoo",
       "description": "Shampoo ultra eficaz...",
       "images":[
-        "image1": "../",
-        "image2": "../"
-        "image3": "../"
+        "image1": "/public/images/*",
+        "image2": "/public/images/*",
+        "image3": "/public/images/*",
       ]
       "price": 25,
-      "quantity": 5
     }
     ```
 
@@ -91,21 +96,25 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
 * Descrição: Cria um produto no banco de dados
 * Controller: ProductController
 * Método: create
-* Parâmetros Corpo:
+* Parâmetros Corpo(utilize um multipart/FormData):
      ```json
     {
       "sku": "ss013",
       "name": "Shampoo",
       "description": "Shampoo ultra eficaz...",
-      "price": 25,
-      "quantity": 5,
-      "images":[
-        "image1": "../",
-        "image2": "../"
-        "image3": "../"
-      ]
+      "price": 25
+    }
+    {
+    files: {
+     "image1": file...,
+     "image2": file...,
+     "image3": file...,
+     }
     }
     ```
+* Parâmetros Header (para fins de autenticação do admin):
+  ```bash
+   USER-ID: 1
 * Sucesso:
   * Status 201: Sucesso ao criar o produto
 
@@ -148,11 +157,8 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
   ```
 * Sucesso:
   * Status 200: Sucesso ao logar com as credenciais
-   ```json
-  {
-    "id": 13
-  }
-  ```
+   ```bash
+    "HTTP_USER_ID": 13
 
 ## PUT /user/update/name
 * Descrição: Atualiza o nome do usuário
