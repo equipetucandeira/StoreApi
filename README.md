@@ -26,9 +26,6 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
 * Controller: ProductController
 * Método: fetch
 * Parâmetros Corpo: Nenhum
-* Parâmetros Header (para fins de autenticação do admin):
-  ```bash
-   USER-ID: 1
 * Sucesso:
   * Status 200: Sucesso ao recuperar os dados dos produtos.
   * Exemplo:
@@ -52,6 +49,9 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
 * Controller: OrderController
 * Método: fetch
 * Parâmetros Corpo: Nenhum
+* Parâmetros Header (para fins de autenticação do admin):
+  ```bash
+   USER-ID: 1
 * Sucesso:
   * Status 200: Sucesso ao recuperar os dados dos pedidos.
   * Exemplo:
@@ -141,6 +141,9 @@ Essa API REST foi criada com o objetivo acadêmico para desenvolviemnto de uma l
     ]
   }
   ```
+* Parâmetros Header (para fins de autenticação do usuário):
+  ```bash
+   USER-ID: id_usuario
 * Sucesso:
   * Status 201: Sucesso ao criar o pedido
 
