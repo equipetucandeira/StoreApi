@@ -32,7 +32,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
@@ -53,7 +53,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
@@ -72,7 +72,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
@@ -91,7 +91,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
@@ -111,7 +111,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
@@ -131,7 +131,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
@@ -161,7 +161,7 @@ class ProductController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();

@@ -54,7 +54,7 @@ class OrderController
                 Response::error(401, "No Authorization Header Provided", "HEADER", 1);
             }
             if($auth = ! 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
 

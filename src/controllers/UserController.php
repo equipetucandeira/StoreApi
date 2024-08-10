@@ -50,6 +50,10 @@ class UserController
     public function updateName(): void
     {
         try {
+            if(Request::getAuth() == null) {
+                Response::error(401, "No Authorization Header Provided", "HEADER", 1);
+                return;
+            }
             $body = Request::getBody();
             $this->userService->updateUserName($body);
             Response::success(200, "Name updated Successfully");
@@ -60,6 +64,10 @@ class UserController
     public function updateEmail(): void
     {
         try {
+            if(Request::getAuth() == null) {
+                Response::error(401, "No Authorization Header Provided", "HEADER", 1);
+                return;
+            }
             $body = Request::getBody();
             $this->userService->updateUserEmail($body);
             Response::success(200, "Email updated Successfully");
@@ -70,6 +78,10 @@ class UserController
     public function updatePassword(): void
     {
         try {
+            if(Request::getAuth() == null) {
+                Response::error(401, "No Authorization Header Provided", "HEADER", 1);
+                return;
+            }
             $body = Request::getBody();
             $this->userService->updateUserPassword($body);
             Response::success(200, "Password updated Successfully");
@@ -87,7 +99,7 @@ class UserController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $users = $this->userService->fetchUsers();
@@ -106,7 +118,7 @@ class UserController
                 return;
             }
             if($auth != 1) {
-                Response::error(401, "Invalid Authorization Header for this route", "HEADER", 1);
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
                 return;
             }
             $body = Request::getBody();
