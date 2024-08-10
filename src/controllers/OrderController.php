@@ -38,7 +38,13 @@ class OrderController
                 return;
             }
             $body = Request::getBody();
+            $cartTotalValue = 0;
 
+            foreach($body['cartItens'] as $item) {
+                $this->productService->productExists($item['productID']);
+                $cartTotalValue += $item['price'] * $item['quantity'];
+            }
+            $body['cartTotalValue'] = $cartTotalValue;
             $this->orderService->createOrder($body);
         } catch(\Exception $e) {
             Response::error(400, $e->getMessage(), $e->getFile(), $e->getLine());

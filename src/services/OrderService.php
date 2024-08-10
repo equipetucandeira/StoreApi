@@ -10,7 +10,6 @@ use Exception;
 class OrderService
 {
     private OrderModel $orderModel;
-
     public function __construct(OrderModel $orderModel)
     {
         $this->orderModel = $orderModel;
@@ -21,14 +20,7 @@ class OrderService
         $userID = $data['userID'];
         $productList = $data['cartItens'];
         $date = $data['datetime'];
-        $cartTotalValue = 0;
-
-
-        foreach($productList as $item) {
-            $this->productService->productExists($item['productID']);
-            $cartTotalValue += $item['price'] * $item['quantity'];
-        }
-
+        $cartTotalValue = $data['cartTotalValue'];
         $orderID = $this->orderModel->insertOrder($userID, $cartTotalValue, $date);
         $this->orderModel->insertProductOrder($orderID, $productList);
 
@@ -38,9 +30,9 @@ class OrderService
     {
         try {
             $orders = $this->orderModel->getAllOrders();
-              foreach ($orders as &$order) {
-               $order["itens"] = $this->orderModel->getOrderItens($order["orderID"]); 
-              }
+            foreach ($orders as &$order) {
+                $order["itens"] = $this->orderModel->getOrderItens($order["orderID"]);
+            }
             return $orders;
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
