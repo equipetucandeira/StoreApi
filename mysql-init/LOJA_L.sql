@@ -33,7 +33,7 @@ CREATE TABLE `orderItens` (
   KEY `product_ID` (`product_ID`),
   CONSTRAINT `orderitens_ibfk_1` FOREIGN KEY (`order_ID`) REFERENCES `orders` (`orderID`),
   CONSTRAINT `orderitens_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +61,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`orderID`),
   KEY `userID` (`userID`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Samuel','samuelprado','$2y$10$krN.P51ybszoFGyJonBzV.to40iUaZ1veOm/Gj8ZVhiaJCpsXDgEm'),(13,'joao','joaoruffino','$2y$10$ooLmfQxdEoK2i6mS1Xv/u.D9MMSDVCJTESM77dIjBR3qY3H1YuFey'),(14,'Pedro Marques','pclemonini-00@hotmail.com','$2y$10$8MFUQfqVvJvpimUdpbpqjuAA/BFu8wwYuP8jUCAV9d5k/RaePONSe'),(21,'Joao Ruffino','ruffino.joaoo@gmail.com','$2y$10$vMxM2EbdAA2Fx/ynPQC.Z.6QyjJaOftU8oX/aHOmU.ZHQL16BKvg.'),(22,'aaa','123@gmail.com','$2y$10$LLxbtKTFnRaxUv0p3NpFJ.XpRtmPT73gGlf75nTJopCzwXb3Yd7MK');
+INSERT INTO `user` VALUES (1,'admin','admin@gmail.com','$2y$10$b9UJAF03samw7xPk2vMG.O/0An1dyWQY3EnOzSOEc4N/f7pveHzzK'),(2,'Samuel','samuelprado','$2y$10$krN.P51ybszoFGyJonBzV.to40iUaZ1veOm/Gj8ZVhiaJCpsXDgEm'),(13,'joao','joaoruffino','$2y$10$ooLmfQxdEoK2i6mS1Xv/u.D9MMSDVCJTESM77dIjBR3qY3H1YuFey'),(14,'Pedro Marques','pclemonini-00@hotmail.com','$2y$10$8MFUQfqVvJvpimUdpbpqjuAA/BFu8wwYuP8jUCAV9d5k/RaePONSe'),(21,'Joao Ruffino','ruffino.joaoo@gmail.com','$2y$10$vMxM2EbdAA2Fx/ynPQC.Z.6QyjJaOftU8oX/aHOmU.ZHQL16BKvg.');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -144,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-13 20:28:20
+-- Dump completed on 2024-08-13 22:18:50
