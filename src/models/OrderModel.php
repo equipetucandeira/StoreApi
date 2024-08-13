@@ -36,8 +36,8 @@ class OrderModel
             $stmt->bindValue(':quantity', $item['quantity']);
 
             $stmt->execute();
-            return $this->db->lastInsertId();
         }
+        return $this->db->lastInsertId();
     }
 
     public function getOrderID(int $id)
@@ -68,8 +68,10 @@ class OrderModel
       FROM orderItens
       INNER JOIN product
       ON orderItens.product_ID = product.id
+      WHERE orderItens.order_ID = :id
       "
         );
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
