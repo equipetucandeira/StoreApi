@@ -30,7 +30,20 @@ class OrderService
     {
         try {
             $orders = $this->orderModel->getAllOrders();
-            foreach ($orders as &$order) {
+           foreach ($orders as &$order) {
+                $order["itens"] = $this->orderModel->getOrderItens($order["orderID"]);
+         }
+            return $orders;
+        } catch (Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+  }
+
+ public function fetchOrdersWithItensByUser(int $auth)
+    {
+    try {
+            $orders = $this->orderModel->getOrders($auth);
+           foreach ($orders as &$order) {
                 $order["itens"] = $this->orderModel->getOrderItens($order["orderID"]);
             }
             return $orders;

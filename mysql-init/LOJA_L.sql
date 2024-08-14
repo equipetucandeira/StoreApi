@@ -1,110 +1,129 @@
 -- MySQL dump 10.13  Distrib 9.0.1, for Linux (x86_64)
 --
--- Host: localhost    Database: myapp_db
+-- Host: localhost    database: myapp_db
 -- ------------------------------------------------------
--- Server version	9.0.1
+-- server version	9.0.1
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `orderItens`
---
-
-DROP TABLE IF EXISTS `orderItens`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orderItens` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_ID` int NOT NULL,
-  `order_ID` int NOT NULL,
-  `item_Quantity` int NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `order_ID` (`order_ID`),
-  KEY `product_ID` (`product_ID`),
-  CONSTRAINT `orderitens_ibfk_1` FOREIGN KEY (`order_ID`) REFERENCES `orders` (`orderID`),
-  CONSTRAINT `orderitens_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set @old_character_set_client=@@character_set_client */;
+/*!40101 set @old_character_set_results=@@character_set_results */;
+/*!40101 set @old_collation_connection=@@collation_connection */;
+/*!50503 set names utf8mb4 */;
+/*!40103 set @old_time_zone=@@time_zone */;
+/*!40103 set time_zone='+00:00' */;
+/*!40014 set @old_unique_checks=@@unique_checks, unique_checks=0 */;
+/*!40014 set @old_foreign_key_checks=@@foreign_key_checks, foreign_key_checks=0 */;
+/*!40101 set @old_sql_mode=@@sql_mode, sql_mode='no_auto_value_on_zero' */;
+/*!40111 set @old_sql_notes=@@sql_notes, sql_notes=0 */;
 
 --
--- Dumping data for table `orderItens`
+-- table structure for table `orderitens`
 --
 
-LOCK TABLES `orderItens` WRITE;
-/*!40000 ALTER TABLE `orderItens` DISABLE KEYS */;
-INSERT INTO `orderItens` VALUES (1,3,3,2,123.12),(2,2,3,1,13.00),(3,3,4,2,123.12),(4,3,5,2,123.12),(5,1,6,1,10.00),(6,1,7,1,10.00),(7,1,8,1,10.00),(8,1,9,1,10.00),(9,1,10,1,10.00),(10,1,11,1,10.00),(11,1,12,1,10.00),(12,1,13,1,10.00);
-/*!40000 ALTER TABLE `orderItens` ENABLE KEYS */;
-UNLOCK TABLES;
+drop table if exists `orderitens`;
+/*!40101 set @saved_cs_client     = @@character_set_client */;
+/*!50503 set character_set_client = utf8mb4 */;
+create table `orderitens` (
+  `id` int not null auto_increment,
+  `product_id` int not null,
+  `order_id` int not null,
+  `item_quantity` int not null,
+  `price` decimal(10,2) not null,
+  primary key (`id`),
+  key `order_id` (`order_id`),
+  key `product_id` (`product_id`),
+  constraint `orderitens_ibfk_1` foreign key (`order_id`) references `orders` (`orderid`),
+  constraint `orderitens_ibfk_2` foreign key (`product_id`) references `product` (`id`)
+) engine=innodb auto_increment=21 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `orders`
+-- dumping data for table `orderitens`
 --
 
-DROP TABLE IF EXISTS `orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orders` (
-  `orderID` int NOT NULL AUTO_INCREMENT,
-  `userID` int NOT NULL,
-  `totalPrice` decimal(10,2) DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`orderID`),
-  KEY `userID` (`userID`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+lock tables `orderitens` write;
+/*!40000 alter table `orderitens` disable keys */;
+insert into `orderitens` values (1,3,3,2,123.12),(2,2,3,1,13.00),(3,3,4,2,123.12),(4,3,5,2,123.12),(5,1,6,1,10.00),(6,1,7,1,10.00),(7,1,8,1,10.00),(8,1,9,1,10.00),(9,1,10,1,10.00),(10,1,11,1,10.00),(11,1,12,1,10.00),(12,1,13,1,10.00);
+/*!40000 alter table `orderitens` enable keys */;
+unlock tables;
 
 --
--- Dumping data for table `orders`
+-- table structure for table `orders`
 --
 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,13,259.24,'2024-07-24 16:23:44'),(2,13,259.24,'2024-07-24 16:23:44'),(3,13,259.24,'2024-07-24 16:23:44'),(4,21,259.24,'2024-07-24 13:23:44'),(5,21,259.24,'2024-07-24 11:23:44'),(6,21,30.00,'2024-07-24 11:23:44'),(7,21,30.00,'2024-07-24 13:23:44'),(8,21,10.00,'2024-08-10 20:44:15'),(9,21,30.00,'2024-08-10 20:51:30'),(10,21,30.00,'2024-08-10 20:53:28'),(11,21,30.00,'2024-08-10 21:02:16'),(12,21,30.00,'2024-08-10 21:02:50'),(13,21,10.00,'2024-08-10 21:03:48');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
+drop table if exists `orders`;
+/*!40101 set @saved_cs_client     = @@character_set_client */;
+/*!50503 set character_set_client = utf8mb4 */;
+create table `orders` (
+  `orderid` int not null auto_increment,
+  `userid` int not null,
+  `totalprice` decimal(10,2) default null,
+  `date` timestamp null default current_timestamp,
+  primary key (`orderid`),
+  key `userid` (`userid`),
+  constraint `orders_ibfk_1` foreign key (`userid`) references `user` (`id`)
+) engine=innodb auto_increment=19 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `product`
+-- dumping data for table `orders`
 --
 
-DROP TABLE IF EXISTS `product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `product` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `sku` varchar(5) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `description` varchar(200) DEFAULT NULL,
-  `price` decimal(5,2) DEFAULT NULL,
-  `image` varchar(40) DEFAULT NULL,
-  `image2` varchar(40) DEFAULT NULL,
-  `image3` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `sku` (`sku`),
-  UNIQUE KEY `id_2` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+lock tables `orders` write;
+/*!40000 alter table `orders` disable keys */;
+insert into `orders` values (1,13,259.24,'2024-07-24 16:23:44'),(2,13,259.24,'2024-07-24 16:23:44'),(3,13,259.24,'2024-07-24 16:23:44'),(4,21,259.24,'2024-07-24 13:23:44'),(5,21,259.24,'2024-07-24 11:23:44'),(6,21,30.00,'2024-07-24 11:23:44'),(7,21,30.00,'2024-07-24 13:23:44'),(8,21,10.00,'2024-08-10 20:44:15'),(9,21,30.00,'2024-08-10 20:51:30'),(10,21,30.00,'2024-08-10 20:53:28'),(11,21,30.00,'2024-08-10 21:02:16'),(12,21,30.00,'2024-08-10 21:02:50'),(13,21,10.00,'2024-08-10 21:03:48');
+/*!40000 alter table `orders` enable keys */;
+unlock tables;
 
 --
--- Dumping data for table `product`
+-- table structure for table `product`
 --
 
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'001','iPhone 13','Description 1',10.00,'public/images/iphone13.webp','public/images/iphone13-2.webp','public/images/iphone13-3.webp'),(2,'002','Samsung Galaxy S21','Description 2',20.00,'public/images/s21.webp','public/images/s21-2.webp','public/images/s21-3.webp'),(3,'003','Google Pixel 6','Description 3',30.00,'s21.webp','s21-2.webp','s21-3.webp'),(4,'004','OnePlus 9','Description 4',40.00,'s21.webp','s21-2.webp','s21-3.webp'),(5,'005','Sony Xperia 5 II','Description 5',50.00,'s21.webp','s21-2.webp','s21-3.webp'),(6,'006','Xiaomi Mi 11','Description 6',60.00,'s21.webp','s21-2.webp','s21-3.webp'),(7,'007','Oppo Find X3 Pro','Description 7',70.00,'s21.webp','s21-2.webp','s21-3.webp'),(8,'008','Huawei P40 Pro','Description 8',80.00,'s21.webp','s21-2.webp','s21-3.webp'),(9,'009','Motorola Edge Plus','Description 9',90.00,'s21.webp','s21-2.webp','s21-3.webp'),(10,'010','Asus ROG Phone 5','Description 10',100.00,'s21.webp','s21-2.webp','s21-3.webp'),(11,'011','Nokia 8.3 5G','Description 11',110.00,'s21.webp','s21-2.webp','s21-3.webp'),(12,'012','LG Wing','Description 12',120.00,'s21.webp','s21-2.webp','s21-3.webp'),(13,'013','Realme GT','Description 13',130.00,'s21.webp','s21-2.webp','s21-3.webp'),(14,'014','Vivo X60 Pro+','Description 14',140.00,'s21.webp','s21-2.webp','s21-3.webp'),(15,'015','ZTE Axon 30 Ultra','Description 15',150.00,'s21.webp','s21-2.webp','s21-3.webp'),(16,'016','Lenovo Legion Phone Duel','Description 16',160.00,'s21.webp','s21-2.webp','s21-3.webp'),(17,'017','Microsoft Surface Duo','Description 17',170.00,'s21.webp','s21-2.webp','s21-3.webp'),(18,'018','TCL 20 Pro 5G','Description 18',180.00,'s21.webp','s21-2.webp','s21-3.webp'),(19,'019','Fairphone 4','Description 19',190.00,'s21.webp','s21-2.webp','s21-3.webp'),(20,'020','Poco F3','Description 20',200.00,'s21.webp','s21-2.webp','s21-3.webp'),(24,'iph14','Iphone 14','mmmmmmmmmmm',50.00,'public/images/iphoneee.webp',NULL,NULL),(25,'iph15','Iphone 15','mmmmmmmmmmmmmmmmmmmmmmmmmmmm',13.00,'public/images/iphoneee.webp',NULL,NULL);
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+drop table if exists `product`;
+/*!40101 set @saved_cs_client     = @@character_set_client */;
+/*!50503 set character_set_client = utf8mb4 */;
+create table `product` (
+  `id` int not null auto_increment,
+  `sku` varchar(5) not null,
+  `name` varchar(50) default null,
+  `description` varchar(200) default null,
+  `price` decimal(10,2) default null,
+  `image` varchar(40) default null,
+  `image2` varchar(40) default null,
+  `image3` varchar(40) default null,
+  primary key (`id`),
+  unique key `id` (`id`),
+  unique key `sku` (`sku`),
+  unique key `id_2` (`id`)
+) engine=innodb auto_increment=46 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
+/*!40101 set character_set_client = @saved_cs_client */;
+
+--
+-- dumping data for table `product`
+--
+
+lock tables `product` write;
+/*!40000 alter table `product` disable keys */;
+insert into `product` (`sku`, `name`, `description`, `price`, `image`, `image2`, `image3`) values
+('p001', 'samsung galaxy s21', 'smartphone samsung galaxy s21 com 128gb de armazenamento', 799.99, '/public/images/s21_1.jpg', '/public/images/s21_2.jpg', '/public/images/s21_3.jpg'),
+('p002', 'apple iphone 13', 'apple iphone 13 com 128gb de armazenamento', 899.99, '/public/images/iphone13_1.jpg', '/public/images/iphone13_2.jpg', '/public/images/iphone13_3.jpg'),
+('p003', 'xiaomi mi 11', 'xiaomi mi 11 com 256gb de armazenamento', 699.99, '/public/images/mi11_1.jpg', '/public/images/mi11_2.jpg', null),
+('p004', 'google pixel 6', 'google pixel 6 com 128gb de armazenamento', 799.99, '/public/images/pixel6_1.jpg', '/public/images/pixel6_2.jpg', '/public/images/pixel6_3.jpg'),
+('p005', 'oneplus 9', 'oneplus 9 com 128gb de armazenamento', 729.99, '/public/images/oneplus9_1.jpg', null, null),
+('P006', 'Sony Xperia 1 III', 'Sony Xperia 1 III com 256GB de armazenamento', 949.99, '/public/images/xperia1_1.jpg', null, null),
+('P007', 'Huawei P50 Pro', 'Huawei P50 Pro com 256GB de armazenamento', 879.99, '/public/images/p50pro_1.jpg', '/public/images/p50pro_2.jpg', '/public/images/p50pro_3.jpg'),
+('P008', 'Oppo Find X3 Pro', 'Oppo Find X3 Pro com 256GB de armazenamento', 849.99, '/public/images/findx3_1.jpg', '/public/images/findx3_2.jpg', '/public/images/findx3_3.jpg'),
+('P009', 'Motorola Edge 20 Pro', 'Motorola Edge 20 Pro com 128GB de armazenamento', 699.99, '/public/images/edge20pro_1.jpg', '/public/images/edge20pro_2.jpg', '/public/images/edge20pro_3.jpg'),
+('P010', 'Realme GT', 'Realme GT com 128GB de armazenamento', 599.99, '/public/images/realmegt_1.jpg', '/public/images/realmegt_2.jpg', '/public/images/realmegt_3.jpg'),
+('P011', 'Asus ROG Phone 5', 'Asus ROG Phone 5 com 256GB de armazenamento', 999.99, '/public/images/rogphone5_1.jpg', '/public/images/rogphone5_2.jpg', '/public/images/rogphone5_3.jpg'),
+('P012', 'Vivo X70 Pro+', 'Vivo X70 Pro+ com 256GB de armazenamento', 899.99, '/public/images/x70pro_1.jpg', null, null),
+('P013', 'Nokia X20', 'Nokia X20 com 128GB de armazenamento', 499.99, '/public/images/nokiax20_1.jpg', '/public/images/nokiax20_2.jpg', '/public/images/nokiax20_3.jpg'),
+('P014', 'ZTE Axon 30 Ultra', 'ZTE Axon 30 Ultra com 256GB de armazenamento', 749.99, '/public/images/axon30_1.jpg', '/public/images/axon30_2.jpg', '/public/images/axon30_3.jpg'),
+('P015', 'Lenovo Legion Phone Duel 2', 'Lenovo Legion Phone Duel 2 com 512GB de armazenamento', 1099.99, '/public/images/legionduel2_1.jpg', '/public/images/legionduel2_2.jpg', null),
+('P016', 'Alcatel 1S', 'Alcatel 1S com 32GB de armazenamento', 199.99, '/public/images/alcatel1s_1.jpg', '/public/images/alcatel1s_2.jpg', null),
+('P017', 'Tecno Phantom X', 'Tecno Phantom X com 256GB de armazenamento', 649.99, '/public/images/phantomx_1.jpg', null,null),
+('P018', 'Apple iPhone 15 Pro', 'Apple iPhone 15 Pro com 256GB de armazenamento', 1099.99, '/public/images/iphone15pro_1.jpg', '/public/images/iphone15pro_2.jpg', '/public/images/iphone15pro_3.jpg'),
+('P019', 'Samsung Galaxy S24', 'Samsung Galaxy S24 com 256GB de armazenamento', 1199.99, '/public/images/s24_1.jpg', '/public/images/s24_2.jpg', '/public/images/s24_3.jpg'),
+('P020', 'Apple iPhone 14', 'Apple iPhone 14 com 128GB de armazenamento', 999.99, '/public/images/iphone14_1.jpg', '/public/images/iphone14_2.jpg', '/public/images/iphone14_3.jpg');/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

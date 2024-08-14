@@ -69,6 +69,24 @@ class OrderController
         } catch(\Exception $e) {
             Response::error(400, $e->getMessage(), $e->getFile(), $e->getLine());
         }
-    }
+  }
+
+public function fetchByUser()
+    {
+        try {
+            $auth = Request::getAuth();
+            if(!isset($auth)) {
+                Response::error(401, "No Authorization Header Provided", "HEADER", 1);
+      }
+            
+            $orders = $this->orderService->fetchOrdersWithItensByUser($auth);
+            return Response::json($orders, 200);
+        } catch(\Exception $e) {
+            Response::error(400, $e->getMessage(), $e->getFile(), $e->getLine());
+        }
+  }
+
+
+
 
 }

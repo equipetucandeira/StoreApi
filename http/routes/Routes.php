@@ -6,8 +6,8 @@ use Http\routes\Router;
 Router::get('/', 'HomeController', 'index');
 Router::get('/user/fetch', 'UserController', 'fetch');
 Router::get('/product/fetch', 'ProductController', 'fetch');
+Router::get('/order/fetchByUser', 'OrderController', 'fetchByUser');
 Router::get('/order/fetch', 'OrderController', 'fetch');
-
 Router::post('/user/create', 'UserController', 'create');
 Router::post('/user/login', 'UserController', 'login');
 Router::post('/product/create', 'ProductController', 'create');

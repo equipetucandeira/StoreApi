@@ -27,7 +27,7 @@ class OrderModel
     public function insertProductOrder(int $orderID, array $productList)
     {
         foreach($productList as $item) {
-            $stmt = $this->db->prepare("INSERT INTO orderItens(order_ID,product_ID, price, item_Quantity)
+            $stmt = $this->db->prepare("INSERT INTO orderitens(order_ID,product_ID, price, item_Quantity)
         VALUES (:orderid, :productid,:price, :quantity)");
 
             $stmt->bindValue(':orderid', $orderID);
@@ -52,7 +52,7 @@ class OrderModel
 
     public function getAllOrders()
     {
-    $stmt = $this->db->prepare("
+        $stmt = $this->db->prepare("
       SELECT orderID,user.name AS username,totalPrice,date FROM orders
       INNER JOIN user
       ON orders.userID = user.id");
@@ -61,14 +61,28 @@ class OrderModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getOrders(int $id)
+    {
+        $stmt = $this->db->prepare("
+      SELECT orderID,user.name AS username,totalPrice,date FROM orders
+      INNER JOIN user
+      ON orders.userID = user.id
+      WHERE userid = :id");
+   $stmt->bindValue(':id', $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getOrderItens($id)
     {
         $stmt = $this->db->prepare(
-            "SELECT product_ID,name,item_Quantity,orderItens.price 
-      FROM orderItens
+            "SELECT product_ID,name,item_Quantity,orderitens.price 
+      FROM orderitens
       INNER JOIN product
-      ON orderItens.product_ID = product.id
-      WHERE orderItens.order_ID = :id
+      ON orderitens.product_ID = product.id
+      WHERE orderitens.order_ID = :id
       "
         );
         $stmt->bindValue(':id', $id);
