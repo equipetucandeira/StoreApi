@@ -98,15 +98,12 @@ class ProductService
         try {
             if($data == []) {
                 throw new \Exception("No data found");
-            }
+      }
             $data["name"] = trim($data["name"]);
             $data["description"] = trim($data["description"]);
             $data["price"] = floatval(trim($data["price"]));
             $data["sku"] = trim($data["sku"]);
             $uploadedImages = $data["files"];
-            if($this->skuExists($data['sku']) !== false) {
-                throw new \Exception("Product SKU Already Exists");
-            }
 
             Validator::validateStringSize($data["name"], 3, 50);
             Validator::validateStringSize($data["description"], 10, 200);
@@ -123,9 +120,13 @@ class ProductService
                 $data['name'],
                 $data['sku'],
                 $data['description'],
-                $images["image1"],
                 $data['price']
-            );
+      );
+            
+            if(isset($images["image1"])) {
+                Validator::validateStringSize($images["image1"], 1, 40);
+                $this->productModel->InsertImage("image", $images["image1"], $id);
+            }
 
             if(isset($images["image2"])) {
                 Validator::validateStringSize($images["image2"], 1, 40);

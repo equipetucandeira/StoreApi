@@ -22,7 +22,7 @@ Router::put('/product/update/sku', 'ProductController', 'updateSku');
 Router::put('/product/update/description', 'ProductController', 'updateDescription');
 Router::put('/product/update/price', 'ProductController', 'updatePrice');
 Router::put('/product/update/image', 'ProductController', 'updateImage');
-Router::put('/product/update', 'ProductController', 'update');
+Router::post('/product/update', 'ProductController', 'update');
 
 Router::delete('/user/delete', 'UserController', 'delete');
 Router::delete('/product/delete', 'ProductController', 'delete');

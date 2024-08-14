@@ -28,13 +28,12 @@ class ProductModel
 
     }
 
-    public function updateProduct(int $id, string $name, STRING $sku, string $description, string $image, float $price)
+    public function updateProduct(int $id, string $name, STRING $sku, string $description, float $price)
     {
         $stmt = $this->db->prepare("UPDATE product SET
       name = :name, 
       sku = :sku, 
       description = :description, 
-      image = :image,
       price = :price 
       WHERE id = :id");
 
@@ -42,7 +41,6 @@ class ProductModel
         $stmt->bindValue(':sku', $sku);
         $stmt->bindValue(':description', $description);
         $stmt->bindValue(':price', $price);
-        $stmt->bindValue(':image', $image);
         $stmt->bindValue('id', $id);
         $stmt->execute();
 
