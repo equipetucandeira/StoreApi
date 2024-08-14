@@ -76,21 +76,28 @@ class Router
     public static function execute()
     {
         try {
-            $routes = self::$routes;
-            $requestMethod = Request::getMethod();
-            $uri = '/'.ltrim(Request::getPath(), '/API');
+        $routes = self::$routes;
+        $requestMethod = Request::getMethod();
+        $uri = '/'.ltrim(Request::getPath(), '/API');
+        $queryString = Request::getQueryString();
 
-            if(!$routes[$uri]) {
-                throw new \Exception("Route not found", 404);
-            }
-            $foundRoute = $routes[$uri];
-            if($foundRoute['method'] !== $requestMethod) {
-                throw new \Exception("Sorry, Method Not allowed", 405);
-            }
-            self::load($foundRoute['controller'], $foundRoute['action']);
+        // Combinar URI e Query String se a rota exigir
+        $uriWithQuery = $queryString ? $uri . '?' . $queryString : $uri;
 
-        } catch (\Throwable $th) {
-            Response::error($th->getCode() ?: 500, $th->getMessage(), $th->getFile(), $th->getLine());
+        // Tenta encontrar a rota com e sem a query string
+        if (!isset($routes[$uri]) && !isset($routes[$uriWithQuery])) {
+            throw new \Exception("Route not found", 404);
         }
-    }
+
+        // Verifica qual rota foi encontrada
+        $foundRoute = $routes[$uriWithQuery] ?? $routes[$uri];
+
+        if ($foundRoute['method'] !== $requestMethod) {
+            throw new \Exception("Sorry, Method Not allowed", 405);
+        }
+        self::load($foundRoute['controller'], $foundRoute['action']);
+
+    } catch (\Throwable $th) {
+        Response::error($th->getCode() ?: 500, $th->getMessage(), $th->getFile(), $th->getLine());
+    }    }
 }

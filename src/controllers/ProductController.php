@@ -43,7 +43,34 @@ class ProductController
             Response::error(400, $e->getMessage(), $e->getFile(), $e->getLine());
         }
 
+  }
+
+
+ public function show(): void
+    {
+        try {
+            $queryString = Request::getQueryString();
+            parse_str($queryString, $params);
+            $productId = $params['id'] ?? null;
+            if (is_null($productId)) {
+                Response::error(400, "Product ID is required", "QUERY", 1);
+                return;
+            }
+
+            $product = $this->productService->getProductById($productId);
+
+            if (!$product) {
+                Response::error(404, "Product not found", "PRODUCT", 1);
+                return;
+            }
+
+            Response::json($product);
+
+        } catch (\Exception $e) {
+            Response::error(500, $e->getMessage(), $e->getFile(), $e->getLine());
+        }
     }
+
     public function updateName(): void
     {
     try {
@@ -150,7 +177,28 @@ class ProductController
         } catch (\Exception $e) {
             Response::error(500, $e->getMessage(), $e->getFile(), $e->getLine());
         }
-    }
+  }
+
+  public function update():void{
+    try {
+            $auth = Request::getAuth();
+            if(!isset($auth)) {
+                Response::error(401, "No Authorization Header Provided", "HEADER", 1);
+                return;
+            }
+            if($auth != 1) {
+                Response::error(403, "Invalid Authorization Header for this route", "HEADER", 1);
+                return;
+            }
+            $body = Request::getBody();
+            $this->productService->updateProduct($body);
+            Response::success(201, "Product Updated Successfully");
+
+        } catch(Exception $e) {
+            Response::error(400, $e->getMessage(), $e->getFile(), $e->getLine());
+        }
+
+  }
 
     public function delete(): void
     {

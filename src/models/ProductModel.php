@@ -28,6 +28,36 @@ class ProductModel
 
     }
 
+    public function updateProduct(int $id, string $name, STRING $sku, string $description, string $image, float $price)
+    {
+        $stmt = $this->db->prepare("UPDATE product SET
+      name = :name, 
+      sku = :sku, 
+      description = :description, 
+      image = :image,
+      price = :price 
+      WHERE id = :id");
+
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':sku', $sku);
+        $stmt->bindValue(':description', $description);
+        $stmt->bindValue(':price', $price);
+        $stmt->bindValue(':image', $image);
+        $stmt->bindValue('id', $id);
+        $stmt->execute();
+
+
+    }
+
+    public function getProduct(int $id)
+    {
+        $stmt =  $this->db->prepare("SELECT * from product WHERE id=:id");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
     public function deleteProduct(int $id)
     {
         $stmt = $this->db->prepare("DELETE FROM product WHERE (id = :id)");
@@ -42,14 +72,14 @@ class ProductModel
         $stmt->bindValue(":productId", $id);
         $stmt->execute();
     }
-    public function updatePrice(int $id,float $price)
+    public function updatePrice(int $id, float $price)
     {
         $stmt = $this->db->prepare("UPDATE product SET price = :price WHERE(id = :productId)");
         $stmt->bindValue(":price", $price);
         $stmt->bindValue(":productId", $id);
         $stmt->execute();
     }
-    public function updateSku(int $id,string $sku)
+    public function updateSku(int $id, string $sku)
     {
         $stmt = $this->db->prepare("UPDATE product SET sku = :sku WHERE(id = :productId)");
         $stmt->bindValue(":sku", $sku);

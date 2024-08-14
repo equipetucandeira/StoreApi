@@ -8,6 +8,8 @@ Router::get('/user/fetch', 'UserController', 'fetch');
 Router::get('/product/fetch', 'ProductController', 'fetch');
 Router::get('/order/fetchByUser', 'OrderController', 'fetchByUser');
 Router::get('/order/fetch', 'OrderController', 'fetch');
+Router::get('/product', 'ProductController', 'show');
+
 Router::post('/user/create', 'UserController', 'create');
 Router::post('/user/login', 'UserController', 'login');
 Router::post('/product/create', 'ProductController', 'create');
@@ -20,7 +22,7 @@ Router::put('/product/update/sku', 'ProductController', 'updateSku');
 Router::put('/product/update/description', 'ProductController', 'updateDescription');
 Router::put('/product/update/price', 'ProductController', 'updatePrice');
 Router::put('/product/update/image', 'ProductController', 'updateImage');
-
+Router::put('/product/update', 'ProductController', 'update');
 
 Router::delete('/user/delete', 'UserController', 'delete');
 Router::delete('/product/delete', 'ProductController', 'delete');

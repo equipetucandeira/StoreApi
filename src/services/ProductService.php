@@ -75,6 +75,64 @@ class ProductService
             }
             if(isset($images["image3"])) {
                 Validator::validateStringSize($images["image3"], 1, 40);
+                 $this->productModel->InsertImage("image3", $images["image3"], $id);
+                return $id;
+            }
+
+        } catch(\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+  }
+
+    public function getProductById(int $id){
+    try {
+            return $this->productModel->getProduct($id);
+        } catch (Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+    }
+
+    public function updateProduct(array $data)
+    {
+        try {
+            if($data == []) {
+                throw new \Exception("No data found");
+            }
+            $data["name"] = trim($data["name"]);
+            $data["description"] = trim($data["description"]);
+            $data["price"] = floatval(trim($data["price"]));
+            $data["sku"] = trim($data["sku"]);
+            $uploadedImages = $data["files"];
+            if($this->skuExists($data['sku']) !== false) {
+                throw new \Exception("Product SKU Already Exists");
+            }
+
+            Validator::validateStringSize($data["name"], 3, 50);
+            Validator::validateStringSize($data["description"], 10, 200);
+            Validator::validateStringSize($data["sku"], 1, 5);
+
+            if($data["price"] <= 0) {
+                throw new \Exception("Product Price invalid");
+            }
+
+
+            $images = $this->handleImageUpload($uploadedImages);
+      $id = $this->productModel->updateProduct(
+                $data['id'],
+                $data['name'],
+                $data['sku'],
+                $data['description'],
+                $images["image1"],
+                $data['price']
+            );
+
+            if(isset($images["image2"])) {
+                Validator::validateStringSize($images["image2"], 1, 40);
+                $this->productModel->InsertImage("image2", $images["image2"], $id);
+            }
+            if(isset($images["image3"])) {
+                Validator::validateStringSize($images["image3"], 1, 40);
                 $this->productModel->InsertImage("image3", $images["image3"], $id);
                 return $id;
             }
@@ -82,7 +140,9 @@ class ProductService
         } catch(\Exception $e) {
             throw new \Exception($e->getMessage());
         }
+
     }
+
 
     public function fetchProducts()
     {
